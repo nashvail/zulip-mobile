@@ -49,7 +49,7 @@ class ModalSearchNavBar extends React.Component {
           <SearchInput onChange={searchBarOnChange} /> :
           <Label style={textStyle} text={title} />
         }
-        {searchBar &&
+        {(searchBar && !isSearchActive) &&
           <NavButton
             name="ios-search"
             onPress={this.changeSearchActiveState}
