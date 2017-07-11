@@ -6,6 +6,7 @@ import { RawLabel } from '../common';
 import UserItem from './UserItem';
 import { sortUserList, filterUserList, groupUsersByInitials } from './usersSelectors';
 import { User } from '../types';
+import searchResults from '../utils/searchResults';
 
 const styles = StyleSheet.create({
   list: {
@@ -35,7 +36,7 @@ export default class UserList extends Component {
     const groupedUsers = groupUsersByInitials(shownUsers);
     const sections = Object.entries(groupedUsers).map(x => ({ key: x[0], data: x[1] }));
 
-    return (
+    return searchResults(
       <SectionList
         style={styles.list}
         initialNumToRender={20}
@@ -54,7 +55,9 @@ export default class UserList extends Component {
         renderSectionHeader={(xx, x) =>
           <RawLabel style={styles.groupHeader} text={x} />
         }
-      />
+      />,
+      shownUsers.length === 0,
+      "No Users Found"
     );
   }
 }

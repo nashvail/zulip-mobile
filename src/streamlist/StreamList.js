@@ -1,8 +1,9 @@
 /* @flow */
 import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, Text } from 'react-native';
 
 import StreamItem from './StreamItem';
+import searchResults from '../utils/searchResults';
 
 const styles = StyleSheet.create({
   list: {
@@ -30,10 +31,10 @@ export default class StreamList extends React.Component {
   };
 
   render() {
-    const { streams, selected, showDescriptions, showSwitch, onNarrow, onSwitch } = this.props;
+    const { streams, selected, showDescriptions, showSwitch, onNarrow, onSwitch, clearInput } = this.props;
     const sortedStreams = streams.sort((a, b) => a.name.localeCompare(b.name));
 
-    return (
+    return searchResults(
       <FlatList
         style={styles.list}
         initialNumToRender={sortedStreams.length}
@@ -54,7 +55,11 @@ export default class StreamList extends React.Component {
             onSwitch={onSwitch}
           />
         )}
-      />
+      />,
+      streams.length === 0,
+      "No Subscriptions Found",
+      "Show All Subscriptions",
+      clearInput
     );
   }
 }

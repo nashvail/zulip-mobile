@@ -66,6 +66,7 @@ class SubscriptionsScreen extends React.Component {
           showDescriptions
           onNarrow={() => {}}
           onSwitch={this.handleSwitchChange}
+          clearInput={this.clearFilter}
         />
       </SearchScreen>
     );
